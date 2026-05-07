@@ -1,25 +1,50 @@
 import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import App from "./App";
 
-test("renders 待辦事項清單 heading", () => {
+beforeEach(() => {
+  localStorage.clear();
+});
+
+test("renders FocusFlow heading", () => {
   render(<App />);
-  const headingElement = screen.getByText(/待辦事項清單/i);
-  expect(headingElement).toBeInTheDocument();
+
+  expect(
+    screen.getByRole("heading", { name: /FocusFlow Todo/i })
+  ).toBeInTheDocument();
+  expect(screen.getByText("質感高效待辦清單")).toBeInTheDocument();
 });
 
 test("renders todo form", () => {
   render(<App />);
-  const inputElement = screen.getByPlaceholderText(/新增待辦事項.../i);
-  expect(inputElement).toBeInTheDocument();
+
+  expect(screen.getByLabelText("Task")).toBeInTheDocument();
+  expect(screen.getByLabelText("Due time")).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: /Add task/i })
+  ).toBeInTheDocument();
 });
 
-test("renders filter buttons", () => {
+test("renders task stats and filter buttons", () => {
   render(<App />);
-  const allButton = screen.getByText(/全部/i);
-  const activeButton = screen.getByText(/進行中/i);
-  const completedButton = screen.getByText(/已完成/i);
 
-  expect(allButton).toBeInTheDocument();
-  expect(activeButton).toBeInTheDocument();
-  expect(completedButton).toBeInTheDocument();
+  expect(screen.getByText("Total")).toBeInTheDocument();
+  expect(screen.getAllByText("Completed")).toHaveLength(2);
+  expect(screen.getByText("Remaining")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "All" })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Active" })).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Completed" })
+  ).toBeInTheDocument();
+});
+
+test("renders intentional empty state", () => {
+  render(<App />);
+
+  expect(
+    screen.getByRole("heading", { name: /No tasks yet/i })
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/Add one focused task to start shaping the day./i)
+  ).toBeInTheDocument();
 });

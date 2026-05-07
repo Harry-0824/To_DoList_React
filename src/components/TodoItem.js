@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Item,
   Checkbox,
+  TodoContent,
+  TodoMainRow,
   TodoText,
+  StatusLabel,
+  TodoMeta,
   TimeDisplay,
+  ItemActions,
   TimeEditControls,
   TimeInput,
+  TimeActionButton,
   EditButton,
   DeleteButton,
   EditMode,
@@ -15,14 +21,6 @@ import {
   CancelButton,
 } from "../styles/TodoItemStyles";
 
-/**
- * TodoItem 組件：顯示單個待辦事項
- * @param {object} todo - 待辦事項對象，包含id、text、completed和dueTime屬性
- * @param {function} toggleTodo - 切換待辦事項完成狀態的函數
- * @param {function} deleteTodo - 刪除待辦事項的函數
- * @param {function} updateTodoTime - 更新待辦事項時間的函數
- * @param {function} updateTodoText - 更新待辦事項文字的函數
- */
 function TodoItem({
   todo,
   toggleTodo,
@@ -31,100 +29,118 @@ function TodoItem({
   updateTodoText,
 }) {
   const [isEditingTime, setIsEditingTime] = useState(false);
-  const [tempTime, setTempTime] = useState(todo.dueTime || "");
   const [isEditing, setIsEditing] = useState(false);
-  const [tempText, setTempText] = useState(todo.text);
+  const timeInputRef = useRef(null);
+  const editTextRef = useRef(null);
+  const editTimeRef = useRef(null);
 
-  // 處理時間編輯完成
   const handleTimeUpdate = () => {
-    updateTodoTime(todo.id, tempTime);
+    const nextTime = timeInputRef.current ? timeInputRef.current.value : "";
+    updateTodoTime(todo.id, nextTime);
     setIsEditingTime(false);
   };
 
-  // 處理取消編輯
   const handleCancelEdit = () => {
-    setTempTime(todo.dueTime || "");
     setIsEditingTime(false);
   };
 
-  // 開始編輯任務
   const handleEditStart = () => {
     setIsEditing(true);
-    setTempText(todo.text);
-    setTempTime(todo.dueTime || "");
   };
 
-  // 保存編輯結果
   const handleSaveEdit = () => {
-    if (tempText.trim() !== "") {
-      updateTodoText(todo.id, tempText);
-      updateTodoTime(todo.id, tempTime);
+    const nextText = editTextRef.current ? editTextRef.current.value : todo.text;
+    const nextTime = editTimeRef.current ? editTimeRef.current.value : "";
+
+    if (nextText.trim() !== "") {
+      updateTodoText(todo.id, nextText);
+      updateTodoTime(todo.id, nextTime);
       setIsEditing(false);
     }
   };
 
-  // 取消編輯
   const handleCancelFullEdit = () => {
-    setTempText(todo.text);
-    setTempTime(todo.dueTime || "");
     setIsEditing(false);
   };
 
+  const dueTimeLabel = todo.dueTime
+    ? new Date(todo.dueTime).toLocaleString()
+    : "Set due time";
+
   return (
-    <Item completed={todo.completed}>
+    <Item $completed={todo.completed}>
       {isEditing ? (
         <EditMode>
           <EditTextInput
             type="text"
-            value={tempText}
-            onChange={(e) => setTempText(e.target.value)}
+            defaultValue={todo.text}
+            ref={editTextRef}
+            aria-label="Edit task text"
           />
           <EditTimeInput
             type="datetime-local"
-            value={tempTime}
-            onChange={(e) => setTempTime(e.target.value)}
+            defaultValue={todo.dueTime || ""}
+            ref={editTimeRef}
+            aria-label="Edit due time"
           />
-          <SaveButton onClick={handleSaveEdit}>保存</SaveButton>
-          <CancelButton onClick={handleCancelFullEdit}>取消</CancelButton>
+          <SaveButton type="button" onClick={handleSaveEdit}>
+            Save
+          </SaveButton>
+          <CancelButton type="button" onClick={handleCancelFullEdit}>
+            Cancel
+          </CancelButton>
         </EditMode>
       ) : (
         <>
-          {/* 待辦事項完成狀態勾選框 */}
           <Checkbox
             type="checkbox"
             checked={todo.completed}
             onChange={() => toggleTodo(todo.id)}
+            aria-label={`Mark ${todo.text} as ${
+              todo.completed ? "active" : "completed"
+            }`}
           />
 
-          {/* 待辦事項文字內容 */}
-          <TodoText completed={todo.completed}>{todo.text}</TodoText>
+          <TodoContent>
+            <TodoMainRow>
+              <TodoText $completed={todo.completed}>{todo.text}</TodoText>
+              <StatusLabel $completed={todo.completed}>
+                {todo.completed ? "Done" : "Focus"}
+              </StatusLabel>
+            </TodoMainRow>
 
-          {/* 待辦事項時間顯示與編輯 */}
-          <div>
-            {isEditingTime ? (
-              <TimeEditControls>
-                <TimeInput
-                  type="datetime-local"
-                  value={tempTime}
-                  onChange={(e) => setTempTime(e.target.value)}
-                />
-                <button onClick={handleTimeUpdate}>確認</button>
-                <button onClick={handleCancelEdit}>取消</button>
-              </TimeEditControls>
-            ) : (
-              <TimeDisplay onClick={() => setIsEditingTime(true)}>
-                {todo.dueTime
-                  ? new Date(todo.dueTime).toLocaleString()
-                  : "添加時間"}
-              </TimeDisplay>
-            )}
-          </div>
+            <TodoMeta>
+              {isEditingTime ? (
+                <TimeEditControls>
+                  <TimeInput
+                    type="datetime-local"
+                    defaultValue={todo.dueTime || ""}
+                    ref={timeInputRef}
+                    aria-label="Update due time"
+                  />
+                  <TimeActionButton type="button" onClick={handleTimeUpdate}>
+                    Save time
+                  </TimeActionButton>
+                  <TimeActionButton type="button" onClick={handleCancelEdit}>
+                    Cancel
+                  </TimeActionButton>
+                </TimeEditControls>
+              ) : (
+                <TimeDisplay type="button" onClick={() => setIsEditingTime(true)}>
+                  {dueTimeLabel}
+                </TimeDisplay>
+              )}
+            </TodoMeta>
+          </TodoContent>
 
-          {/* 編輯按鈕 */}
-          <EditButton onClick={handleEditStart}>編輯</EditButton>
-
-          {/* 刪除按鈕 */}
-          <DeleteButton onClick={() => deleteTodo(todo.id)}>刪除</DeleteButton>
+          <ItemActions>
+            <EditButton type="button" onClick={handleEditStart}>
+              Edit
+            </EditButton>
+            <DeleteButton type="button" onClick={() => deleteTodo(todo.id)}>
+              Delete
+            </DeleteButton>
+          </ItemActions>
         </>
       )}
     </Item>

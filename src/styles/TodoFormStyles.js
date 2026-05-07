@@ -1,51 +1,114 @@
 import styled from "styled-components";
 
-/**
- * 任務輸入表單容器
- * 採用水平排列的彈性佈局
- */
 export const Form = styled.form`
-  display: flex;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.42fr) auto;
+  align-items: end;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 16px;
+  background: #172033;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+    max-width: calc(100vw - 64px);
+    padding: 14px;
+    border-radius: 18px;
+  }
 `;
 
-/**
- * 任務文字輸入框
- * 自適應寬度，左側圓角設計
- */
+export const FieldGroup = styled.div`
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+`;
+
+export const FieldLabel = styled.label`
+  display: block;
+  margin: 0 0 7px;
+  color: #aeb9ca;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+`;
+
 export const Input = styled.input`
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px 0 0 4px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(219, 226, 239, 0.16);
+  border-radius: 14px;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: #8d9aaf;
+  }
+
+  @media (max-width: 480px) {
+    max-width: calc(100vw - 92px);
+  }
 `;
 
-/**
- * 時間輸入框
- * 無圓角設計，與文字輸入框和添加按鈕形成一體
- */
 export const TimeInput = styled.input`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 52px;
+  padding: 0 14px;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(219, 226, 239, 0.16);
+  border-radius: 14px;
+  font-size: 0.95rem;
+
+  @media (max-width: 480px) {
+    max-width: calc(100vw - 92px);
+  }
 `;
 
-/**
- * 添加任務按鈕
- * 綠色背景，右側圓角設計，懸停時顯示較深色調
- */
 export const AddButton = styled.button`
-  padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 0 4px 4px 0;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 52px;
+  padding: 0 20px;
+  color: #ffffff;
+  background: #35a86b;
+  border: 0;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  white-space: nowrap;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+
+  @media (max-width: 480px) {
+    max-width: calc(100vw - 92px);
+  }
 
   &:hover {
-    background-color: #45a049;
+    background: #2f965f;
+    box-shadow: 0 12px 24px rgba(27, 128, 78, 0.26);
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 `;
