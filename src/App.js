@@ -5,35 +5,32 @@ import {
   GlobalStyle,
   AppContainer,
   AppHeader,
+  AppTitle,
+  AppSubtitle,
+  HeaderSummary,
+  HeaderSummaryValue,
+  MainPanel,
+  StatsGrid,
+  StatCard,
+  StatLabel,
+  StatValue,
+  ControlsRow,
   FilterButtonsContainer,
   FilterButton,
   ClearCompletedButton,
-  TodoCount,
 } from "./styles/AppStyles";
 
-/**
- * App 組件：待辦事項應用程式的主要組件
- * 包含待辦事項的狀態管理、過濾功能和持久化存儲
- */
 function App() {
-  // 待辦事項狀態管理
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("todos");
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  // 過濾狀態：all(全部)、active(進行中)、completed(已完成)
   const [filter, setFilter] = useState("all");
 
-  // 當待辦事項變更時，保存至本地存儲
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  /**
-   * 添加新待辦事項
-   * @param {string} text - 待辦事項文字內容
-   * @param {string} dueTime - 待辦事項的截止時間
-   */
   const addTodo = (text, dueTime) => {
     if (text.trim() !== "") {
       const newTodo = {
@@ -42,57 +39,38 @@ function App() {
         completed: false,
         dueTime: dueTime,
       };
-      setTodos([...todos, newTodo]);
+      setTodos((currentTodos) => [...currentTodos, newTodo]);
     }
   };
 
-  /**
-   * 切換待辦事項的完成狀態
-   * @param {number} id - 待辦事項的唯一ID
-   */
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
-  /**
-   * 刪除指定待辦事項
-   * @param {number} id - 待辦事項的唯一ID
-   */
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   };
 
-  /**
-   * 更新待辦事項時間
-   * @param {number} id - 待辦事項的唯一ID
-   * @param {string} newTime - 新的截止時間
-   */
   const updateTodoTime = (id, newTime) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
         todo.id === id ? { ...todo, dueTime: newTime } : todo
       )
     );
   };
 
-  /**
-   * 更新待辦事項文字
-   * @param {number} id - 待辦事項的唯一ID
-   * @param {string} newText - 新的待辦事項文字
-   */
   const updateTodoText = (id, newText) => {
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: newText } : todo
+      )
     );
   };
 
-  /**
-   * 根據過濾條件篩選待辦事項
-   */
   const filteredTodos = todos.filter((todo) => {
     if (filter === "all") return true;
     if (filter === "active") return !todo.completed;
@@ -100,63 +78,93 @@ function App() {
     return true;
   });
 
-  /**
-   * 清除所有已完成的待辦事項
-   */
   const clearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.completed));
+    setTodos((currentTodos) => currentTodos.filter((todo) => !todo.completed));
   };
+
+  const totalTodos = todos.length;
+  const completedTodos = todos.filter((todo) => todo.completed).length;
+  const remainingTodos = totalTodos - completedTodos;
+  const progressMessage =
+    totalTodos === 0
+      ? "Plan the next focused task"
+      : remainingTodos === 0
+      ? "All tasks completed"
+      : `${remainingTodos} task${remainingTodos === 1 ? "" : "s"} in focus`;
 
   return (
     <>
       <GlobalStyle />
       <AppContainer>
-        <AppHeader>待辦事項清單</AppHeader>
-        {/* 添加待辦事項表單 */}
-        <TodoForm addTodo={addTodo} />
+        <AppHeader>
+          <div>
+            <AppTitle>FocusFlow Todo</AppTitle>
+            <AppSubtitle>質感高效待辦清單</AppSubtitle>
+          </div>
+          <HeaderSummary aria-live="polite">
+            <HeaderSummaryValue>{progressMessage}</HeaderSummaryValue>
+          </HeaderSummary>
+        </AppHeader>
 
-        {/* 過濾按鈕組 */}
-        <FilterButtonsContainer>
-          <FilterButton
-            active={filter === "all"}
-            onClick={() => setFilter("all")}
-          >
-            全部
-          </FilterButton>
-          <FilterButton
-            active={filter === "active"}
-            onClick={() => setFilter("active")}
-          >
-            進行中
-          </FilterButton>
-          <FilterButton
-            active={filter === "completed"}
-            onClick={() => setFilter("completed")}
-          >
-            已完成
-          </FilterButton>
-        </FilterButtonsContainer>
+        <MainPanel>
+          <TodoForm addTodo={addTodo} />
 
-        {/* 待辦事項列表 */}
-        <TodoList
-          todos={filteredTodos}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-          updateTodoTime={updateTodoTime}
-          updateTodoText={updateTodoText}
-        />
+          <StatsGrid aria-label="Task progress summary">
+            <StatCard>
+              <StatValue>{totalTodos}</StatValue>
+              <StatLabel>Total</StatLabel>
+            </StatCard>
+            <StatCard>
+              <StatValue>{completedTodos}</StatValue>
+              <StatLabel>Completed</StatLabel>
+            </StatCard>
+            <StatCard>
+              <StatValue>{remainingTodos}</StatValue>
+              <StatLabel>Remaining</StatLabel>
+            </StatCard>
+          </StatsGrid>
 
-        {/* 僅在有已完成項目時顯示清除按鈕 */}
-        {todos.some((todo) => todo.completed) && (
-          <ClearCompletedButton onClick={clearCompleted}>
-            清除已完成項目
-          </ClearCompletedButton>
-        )}
+          <ControlsRow>
+            <FilterButtonsContainer aria-label="Todo filters">
+              <FilterButton
+                type="button"
+                $active={filter === "all"}
+                onClick={() => setFilter("all")}
+              >
+                All
+              </FilterButton>
+              <FilterButton
+                type="button"
+                $active={filter === "active"}
+                onClick={() => setFilter("active")}
+              >
+                Active
+              </FilterButton>
+              <FilterButton
+                type="button"
+                $active={filter === "completed"}
+                onClick={() => setFilter("completed")}
+              >
+                Completed
+              </FilterButton>
+            </FilterButtonsContainer>
 
-        {/* 顯示未完成項目數量 */}
-        <TodoCount>
-          剩餘 {todos.filter((todo) => !todo.completed).length} 項未完成
-        </TodoCount>
+            {todos.some((todo) => todo.completed) && (
+              <ClearCompletedButton type="button" onClick={clearCompleted}>
+                Clear completed
+              </ClearCompletedButton>
+            )}
+          </ControlsRow>
+
+          <TodoList
+            todos={filteredTodos}
+            filter={filter}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+            updateTodoTime={updateTodoTime}
+            updateTodoText={updateTodoText}
+          />
+        </MainPanel>
       </AppContainer>
     </>
   );
