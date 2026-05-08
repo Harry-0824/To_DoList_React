@@ -1,40 +1,40 @@
 # FocusFlow Todo
 
-質感高效待辦清單 - a polished productivity Todo app built with React.
+質感高效待辦清單 - 使用 React 打造的精緻生產力 Todo 應用。
 
-## Overview
+## 專案概述
 
-FocusFlow Todo is a portfolio-ready productivity mini app for planning, tracking, and completing focused daily tasks. It takes a familiar Todo workflow and presents it with a cleaner product direction: clear input, visible progress, persistent task data, and responsive interaction patterns.
+FocusFlow Todo 是一個作品集導向的生產力小型應用，協助使用者規劃、追蹤並完成每日聚焦任務。它保留 Todo 應用直覺的操作流程，並以更完整的產品呈現方式強化任務輸入、進度摘要、狀態切換、資料保存與響應式體驗。
 
-The project is positioned as a frontend portfolio piece that demonstrates practical React state management, component-based UI structure, styled-components styling, and localStorage persistence in a compact, reviewable application.
+這個專案展示了 React 狀態管理、元件化 UI 結構、styled-components 樣式拆分，以及 `localStorage` 持久化資料等前端實作能力，適合作為履歷或作品集中的精簡型產品案例。
 
-## Project Positioning
+## 專案定位
 
-FocusFlow Todo is designed as a polished frontend portfolio project rather than a basic classroom Todo exercise. It emphasizes focus, clarity, task progress, and maintainable React implementation within a small product surface.
+FocusFlow Todo 不是單純的課堂練習 Todo list，而是以作品集展示為目標的前端產品練習。專案重點放在清楚的任務流程、安靜且聚焦的 UI、可掃描的進度資訊，以及可維護的 React 實作結構。
 
-## Features
+## 功能特色
 
-- Add focused tasks with optional due time.
-- Complete and uncomplete tasks.
-- Edit task text and due time.
-- Delete individual tasks.
-- Filter tasks by all, active, and completed states.
-- Clear completed tasks in one action.
-- View task stats for total, completed, and remaining tasks.
-- Persist tasks in `localStorage` across browser sessions.
-- Use responsive UI patterns for desktop and mobile screens.
+- 新增聚焦任務，並可設定任務到期時間。
+- 將任務標記為完成或切回未完成。
+- 編輯任務文字與到期時間。
+- 刪除單一任務。
+- 依照全部、進行中、已完成狀態篩選任務。
+- 一次清除所有已完成任務。
+- 顯示任務總數、已完成數量與剩餘數量。
+- 使用 `localStorage` 保存任務，重新整理後仍保留資料。
+- 支援桌面與行動裝置的響應式版面。
 
-## UI / UX Highlights
+## UI / UX 亮點
 
-- Product-style header with a current focus summary.
-- Strong task entry area for the primary workflow.
-- Clear visual distinction between active and completed tasks.
-- Compact progress stats that make task status easy to scan.
-- Focus, done, and empty states written as product copy rather than placeholder text.
-- Accessible form labels, checkbox labels, and semantic controls where practical.
-- Mobile-friendly layout that keeps task actions usable on narrow screens.
+- 以產品感標題區呈現目前任務焦點。
+- 強化任務輸入區，讓新增任務成為主要操作。
+- 清楚區分進行中與已完成任務狀態。
+- 使用精簡統計卡片呈現任務進度。
+- 為空狀態、完成狀態與聚焦狀態撰寫更像產品的文案。
+- 表單、核取方塊與按鈕保留可理解的標籤與語意。
+- 行動版維持任務操作可讀性與可點擊性。
 
-## Tech Stack
+## 技術棧
 
 - React 19
 - JavaScript / ES6+
@@ -43,14 +43,14 @@ FocusFlow Todo is designed as a polished frontend portfolio project rather than 
 - localStorage API
 - React Testing Library
 
-## Getting Started
+## 開始使用
 
-### Prerequisites
+### 環境需求
 
 - Node.js
 - npm
 
-### Installation
+### 安裝
 
 ```bash
 git clone https://github.com/Harry-0824/To_DoList_React.git
@@ -58,33 +58,33 @@ cd To_DoList_React
 npm install
 ```
 
-### Run Locally
+### 本機執行
 
 ```bash
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+開啟瀏覽器並前往 [http://localhost:3000](http://localhost:3000)。
 
-## Available Scripts
+## 可用指令
 
 ### `npm start`
 
-Runs the app in development mode.
+啟動開發模式。
 
 ### `npm test`
 
-Launches the test runner in interactive watch mode.
+以互動 watch 模式啟動測試。
 
 ### `npm run build`
 
-Creates a production build in the `build/` folder.
+建立 production build，輸出到 `build/` 資料夾。
 
 ### `npm run eject`
 
-Exposes the Create React App build configuration. This is not part of the normal project workflow and should not be run without explicit approval.
+展開 Create React App 的建置設定。這不是本專案的一般工作流程，除非有明確需求，不建議執行。
 
-## Project Structure
+## 專案結構
 
 ```text
 To_DoList_React/
@@ -113,39 +113,39 @@ To_DoList_React/
 `-- README.md
 ```
 
-## Testing / Verification Notes
+## 測試與驗證
 
-This issue is documentation-only, so no runtime test is required for the README update.
+這次 README 更新屬於 docs-only change，因此不需要執行 runtime test。
 
-Recommended verification before review:
+建議在 review 前確認：
 
-- Confirm only `README.md` changed.
-- Confirm no files under `src/` changed.
-- Confirm `package.json` and `package-lock.json` are unchanged.
-- Confirm setup instructions use npm only.
-- Confirm the project structure matches the current repository.
+- 只有 `README.md` 被修改。
+- 沒有修改 `src/` 目錄下的任何檔案。
+- `package.json` 與 `package-lock.json` 沒有變更。
+- 安裝與執行說明只使用 npm。
+- 專案結構與目前 repository 內容一致。
 
-For application-level checks after code changes in future issues, use:
+若未來 issue 涉及應用程式程式碼變更，可使用：
 
 ```bash
 npm test
 npm run build
 ```
 
-## Future Improvements
+## 未來改進方向
 
-- Add richer task organization, such as priority or categories.
-- Add optional deadline indicators for overdue and upcoming tasks.
-- Add keyboard shortcut refinements for faster task entry.
-- Expand test coverage around editing, filtering, and localStorage persistence.
-- Add deployment and portfolio integration in a separate focused issue.
+- 增加任務優先級或分類功能。
+- 加入到期、即將到期或逾期的視覺提示。
+- 補強鍵盤操作，提升快速新增與編輯任務的效率。
+- 擴充編輯、篩選與 `localStorage` persistence 的測試覆蓋。
+- 在獨立 issue 中處理部署與作品集整合。
 
-## Portfolio Notes
+## 作品集說明
 
-FocusFlow Todo is designed to show how a small React app can be shaped into a polished product experience without unnecessary complexity. The project highlights:
+FocusFlow Todo 展示如何把一個小型 React Todo app 打磨成更完整的產品體驗，而不引入不必要的複雜度。這個專案適合用來說明：
 
-- Practical React component composition.
-- State-driven UI for task filters, editing, completion, and progress stats.
-- Persistent client-side data with `localStorage`.
-- Maintainable styling with styled-components.
-- Clear documentation that explains product intent, implementation scope, and future direction.
+- React 元件拆分與組合能力。
+- 以狀態驅動篩選、編輯、完成狀態與進度統計。
+- 使用 `localStorage` 實作瀏覽器端資料保存。
+- 使用 styled-components 管理可維護的樣式結構。
+- 以清楚文件說明產品定位、實作範圍與後續方向。
