@@ -41,6 +41,44 @@ Use focused branch names:
 - `fix/*`
 - `docs/*`
 
+## Post-Merge Cleanup Rules
+
+After a PR is successfully merged, clean up the PR head branch when it is safe to do so.
+
+Delete both:
+
+- the remote PR branch
+- the local PR branch
+
+Only clean up branches that clearly belong to the merged PR and match these work branch patterns:
+
+- `feature/*`
+- `fix/*`
+- `docs/*`
+
+Do not delete:
+
+- `master`
+- `main`
+- `develop`
+- `release/*`
+- `production/*`
+- protected branches
+- branches that are not clearly the merged PR head branch
+- branches with unmerged or uncertain work
+
+Recommended cleanup commands when safe:
+
+```bash
+git checkout master
+git pull origin master
+git branch -d <branch-name>
+git push origin --delete <branch-name>
+```
+
+Do not use `git branch -D` unless the user explicitly approves a force delete.
+
+If the environment or tool cannot delete the branch, report the exact branch name and the manual cleanup commands needed.
 ## Frontend Rules
 
 - Preserve existing behavior unless the Issue asks for a behavior change.
