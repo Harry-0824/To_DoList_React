@@ -1,175 +1,151 @@
-# To-Do List React 應用程式
+# FocusFlow Todo
 
-這是一個使用 React 開發的待辦事項清單應用程式，讓使用者能夠輕鬆管理日常任務。
+質感高效待辦清單 - 使用 React 打造的精緻生產力 Todo 應用。
+
+## 專案概述
+
+FocusFlow Todo 是一個作品集導向的生產力小型應用，協助使用者規劃、追蹤並完成每日聚焦任務。它保留 Todo 應用直覺的操作流程，並以更完整的產品呈現方式強化任務輸入、進度摘要、狀態切換、資料保存與響應式體驗。
+
+這個專案展示了 React 狀態管理、元件化 UI 結構、styled-components 樣式拆分，以及 `localStorage` 持久化資料等前端實作能力，適合作為履歷或作品集中的精簡型產品案例。
+
+## 專案定位
+
+FocusFlow Todo 不是單純的課堂練習 Todo list，而是以作品集展示為目標的前端產品練習。專案重點放在清楚的任務流程、安靜且聚焦的 UI、可掃描的進度資訊，以及可維護的 React 實作結構。
 
 ## 功能特色
 
-- 新增待辦事項：輸入任務內容並加入到清單中
-- 完成待辦事項：標記已完成的任務
-- 刪除待辦事項：移除不需要的任務
-- 編輯待辦事項：修改已存在的任務內容
-- 任務分類：依照完成狀態過濾任務
-- 本地儲存：使用 localStorage 保存任務，重新整理頁面不會遺失資料
+- 新增聚焦任務，並可設定任務到期時間。
+- 將任務標記為完成或切回未完成。
+- 編輯任務文字與到期時間。
+- 刪除單一任務。
+- 依照全部、進行中、已完成狀態篩選任務。
+- 一次清除所有已完成任務。
+- 顯示任務總數、已完成數量與剩餘數量。
+- 使用 `localStorage` 保存任務，重新整理後仍保留資料。
+- 支援桌面與行動裝置的響應式版面。
 
-## 使用技術
+## UI / UX 亮點
 
-- React.js
-- JavaScript/ES6+
+- 以產品感標題區呈現目前任務焦點。
+- 強化任務輸入區，讓新增任務成為主要操作。
+- 清楚區分進行中與已完成任務狀態。
+- 使用精簡統計卡片呈現任務進度。
+- 為空狀態、完成狀態與聚焦狀態撰寫更像產品的文案。
+- 表單、核取方塊與按鈕保留可理解的標籤與語意。
+- 行動版維持任務操作可讀性與可點擊性。
+
+## 技術棧
+
+- React 19
+- JavaScript / ES6+
+- Create React App / `react-scripts`
 - styled-components
-- LocalStorage API
+- localStorage API
+- React Testing Library
 
-## 安裝與使用
+## 開始使用
 
-### 必要條件
+### 環境需求
 
-- Node.js (建議版本 14.x 或更高)
-- npm 或 yarn
+- Node.js
+- npm
 
-### 安裝步驟
+### 安裝
 
-1. 複製此專案：
-
-   ```
-   git clone [repository-url]
-   cd to-dolist-react
-   ```
-
-2. 安裝相依套件：
-
-   ```
-   npm install
-   ```
-
-   或
-
-   ```
-   yarn install
-   ```
-
-3. 啟動開發伺服器：
-
-   ```
-   npm start
-   ```
-
-   或
-
-   ```
-   yarn start
-   ```
-
-4. 在瀏覽器中開啟 [http://localhost:3000](http://localhost:3000) 使用應用程式
-
-## 使用指南
-
-1. 在輸入框中輸入任務內容，按下「新增」按鈕或按 Enter 鍵添加任務
-2. 點擊任務前的勾選框可標記任務為已完成
-3. 點擊任務旁的「編輯」按鈕可修改任務內容
-4. 點擊任務旁的「刪除」按鈕可移除任務
-5. 使用上方的過濾選項可查看全部、已完成或未完成的任務
-
-## 專案結構
-
-```
-to-dolist-react/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── TodoForm.js      # 任務輸入表單
-│   │   ├── TodoItem.js      # 單一任務項目
-│   │   ├── TodoList.js      # 任務清單容器
-│   │   └── FilterOptions.js # 過濾選項
-│   ├── App.js               # 主應用程式元件
-│   ├── App.css              # 主要樣式
-│   └── index.js             # 應用程式入口點
-└── README.md
+```bash
+git clone https://github.com/Harry-0824/To_DoList_React.git
+cd To_DoList_React
+npm install
 ```
 
-## 可能的未來擴展功能
+### 本機執行
 
-- 任務優先級設定
-- 截止日期提醒
-- 支援多個不同清單
-- 雲端同步功能
-- 使用者帳號系統
+```bash
+npm start
+```
 
-## 貢獻指南
+開啟瀏覽器並前往 [http://localhost:3000](http://localhost:3000)。
 
-歡迎提交 Pull Request 或建立 Issue 來改進此專案！
-
-## 授權
-
-此專案採用 MIT 授權 - 詳見 LICENSE 檔案
-
----
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+## 可用指令
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+啟動開發模式。
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+以互動 watch 模式啟動測試。
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+建立 production build，輸出到 `build/` 資料夾。
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+展開 Create React App 的建置設定。這不是本專案的一般工作流程，除非有明確需求，不建議執行。
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 專案結構
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```text
+To_DoList_React/
+|-- public/
+|   |-- index.html
+|   |-- manifest.json
+|   `-- robots.txt
+|-- src/
+|   |-- components/
+|   |   |-- TodoForm.js
+|   |   |-- TodoItem.js
+|   |   `-- TodoList.js
+|   |-- styles/
+|   |   |-- AppStyles.js
+|   |   |-- GlobalStyles.js
+|   |   |-- TodoFormStyles.js
+|   |   |-- TodoItemStyles.js
+|   |   `-- TodoListStyles.js
+|   |-- App.js
+|   |-- App.test.js
+|   `-- index.js
+|-- AGENTS.md
+|-- DESIGN.md
+|-- package-lock.json
+|-- package.json
+`-- README.md
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 測試與驗證
 
-## Learn More
+這次 README 更新屬於 docs-only change，因此不需要執行 runtime test。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+建議在 review 前確認：
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 只有 `README.md` 被修改。
+- 沒有修改 `src/` 目錄下的任何檔案。
+- `package.json` 與 `package-lock.json` 沒有變更。
+- 安裝與執行說明只使用 npm。
+- 專案結構與目前 repository 內容一致。
 
-### Code Splitting
+若未來 issue 涉及應用程式程式碼變更，可使用：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm test
+npm run build
+```
 
-### Analyzing the Bundle Size
+## 未來改進方向
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 增加任務優先級或分類功能。
+- 加入到期、即將到期或逾期的視覺提示。
+- 補強鍵盤操作，提升快速新增與編輯任務的效率。
+- 擴充編輯、篩選與 `localStorage` persistence 的測試覆蓋。
+- 在獨立 issue 中處理部署與作品集整合。
 
-### Making a Progressive Web App
+## 作品集說明
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+FocusFlow Todo 展示如何把一個小型 React Todo app 打磨成更完整的產品體驗，而不引入不必要的複雜度。這個專案適合用來說明：
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React 元件拆分與組合能力。
+- 以狀態驅動篩選、編輯、完成狀態與進度統計。
+- 使用 `localStorage` 實作瀏覽器端資料保存。
+- 使用 styled-components 管理可維護的樣式結構。
+- 以清楚文件說明產品定位、實作範圍與後續方向。
